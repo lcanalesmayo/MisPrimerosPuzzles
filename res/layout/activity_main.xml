@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/mainlayout">
+    <RelativeLayout 
+       	android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".80">
+        <Button
+		    android:layout_height="wrap_content"
+		    android:layout_width="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentTop="true"
+		    android:text="Home"/>
+        <Button
+		    android:layout_height="wrap_content"
+		    android:layout_width="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:layout_alignParentTop="true"
+		    android:text="Settings"/>
+        <Button
+		    android:layout_height="wrap_content"
+		    android:layout_width="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:layout_alignParentBottom="true"
+		    android:onClick="finishActivity"
+		    android:text="Exit"/>
+        <Button
+		    android:layout_height="wrap_content"
+		    android:layout_width="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentBottom="true"
+		    android:text="Help"/>
+		<GridLayout
+		    android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:rowCount="2"
+		    android:layout_centerInParent="true"
+		    android:stretchMode="columnWidth">
+		    
+		    <LinearLayout
+		        android:id="@+id/topleft"
+		        android:layout_width="120dp"
+		        android:layout_height="120dp"
+		        android:layout_column="0"
+		        android:layout_row="0"
+		        android:tag="puzzlepart1"
+		        android:background="@drawable/shape" >
+		    </LinearLayout>
+		
+		    <LinearLayout
+		        android:id="@+id/topright"
+		        android:layout_width="120dp"
+		        android:layout_height="120dp"
+		        android:layout_column="1"
+		        android:layout_row="0"
+		        android:tag="puzzlepart2"
+		        android:background="@drawable/shape" >
+		    </LinearLayout>
+		
+		    <LinearLayout
+		        android:id="@+id/bottomleft"
+		        android:layout_width="120dp"
+		        android:layout_height="120dp"
+		        android:layout_column="0"
+		        android:layout_row="1"
+		        android:tag="puzzlepart3"
+		        android:background="@drawable/shape" >
+		    </LinearLayout>
+		
+		    <LinearLayout
+		        android:id="@+id/bottomright"
+		        android:layout_width="120dp"
+		        android:layout_height="120dp"
+		        android:layout_column="1"
+		        android:layout_row="1"
+		        android:tag="puzzlepart4"
+		        android:background="@drawable/shape" >
+		    </LinearLayout>
+		
+		</GridLayout> 
+	</RelativeLayout>
+	
+	<LinearLayout
+	    android:id="@+id/table"
+	    android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".20"
+        android:orientation="vertical"   
+        android:background="@drawable/shape">  
+	        <ImageView
+	            android:id="@+id/puzzlepart1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:tag="puzzlepart1"
+	            android:src="@drawable/tamano_mini_entrar" />
+	        <ImageView
+	            android:id="@+id/puzzlepart2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:tag="puzzlepart2"
+	            android:src="@drawable/tamano_mini_opciones" />
+	        <ImageView
+	            android:id="@+id/puzzlepart3"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:tag="puzzlepart3"
+	            android:src="@drawable/tamano_mini_salir" />
+	        <ImageView
+	            android:id="@+id/puzzlepart4"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:tag="puzzlepart4"
+	            android:src="@drawable/ic_launcher" />
+	</LinearLayout>
+</LinearLayout>

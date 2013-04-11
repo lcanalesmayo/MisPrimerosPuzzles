@@ -1,119 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:id="@+id/mainlayout">
-    <RelativeLayout 
-       	android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight=".80">
-        <Button
-		    android:layout_height="wrap_content"
-		    android:layout_width="wrap_content"
-		    android:layout_alignParentLeft="true"
-		    android:layout_alignParentTop="true"
-		    android:text="Home"/>
-        <Button
-		    android:layout_height="wrap_content"
-		    android:layout_width="wrap_content"
-		    android:layout_alignParentRight="true"
-		    android:layout_alignParentTop="true"
-		    android:text="Settings"/>
-        <Button
-		    android:layout_height="wrap_content"
-		    android:layout_width="wrap_content"
-		    android:layout_alignParentRight="true"
-		    android:layout_alignParentBottom="true"
-		    android:onClick="finishActivity"
-		    android:text="Exit"/>
-        <Button
-		    android:layout_height="wrap_content"
-		    android:layout_width="wrap_content"
-		    android:layout_alignParentLeft="true"
-		    android:layout_alignParentBottom="true"
-		    android:text="Help"/>
-		<GridLayout
-		    android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-		    android:orientation="vertical"
-		    android:rowCount="2"
-		    android:layout_centerInParent="true"
-		    android:stretchMode="columnWidth">
-		    
-		    <LinearLayout
-		        android:id="@+id/topleft"
-		        android:layout_width="120dp"
-		        android:layout_height="120dp"
-		        android:layout_column="0"
-		        android:layout_row="0"
-		        android:tag="puzzlepart1"
-		        android:background="@drawable/shape" >
-		    </LinearLayout>
-		
-		    <LinearLayout
-		        android:id="@+id/topright"
-		        android:layout_width="120dp"
-		        android:layout_height="120dp"
-		        android:layout_column="1"
-		        android:layout_row="0"
-		        android:tag="puzzlepart2"
-		        android:background="@drawable/shape" >
-		    </LinearLayout>
-		
-		    <LinearLayout
-		        android:id="@+id/bottomleft"
-		        android:layout_width="120dp"
-		        android:layout_height="120dp"
-		        android:layout_column="0"
-		        android:layout_row="1"
-		        android:tag="puzzlepart3"
-		        android:background="@drawable/shape" >
-		    </LinearLayout>
-		
-		    <LinearLayout
-		        android:id="@+id/bottomright"
-		        android:layout_width="120dp"
-		        android:layout_height="120dp"
-		        android:layout_column="1"
-		        android:layout_row="1"
-		        android:tag="puzzlepart4"
-		        android:background="@drawable/shape" >
-		    </LinearLayout>
-		
-		</GridLayout> 
-	</RelativeLayout>
-	
-	<LinearLayout
-	    android:id="@+id/table"
-	    android:layout_width="0dp"
-        android:layout_height="match_parent"
+    android:id="@+id/mainlayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight=".80"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".15" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="Home" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/button_bombilla" 
+                android:clickable="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".70"
+            android:background="@drawable/burro" >
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:rowCount="2"
+                android:stretchMode="columnWidth" >
+
+                <LinearLayout
+                    android:id="@+id/topleft"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:background="@drawable/shape"
+                    android:tag="puzzlepart1" >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/topright"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:background="@drawable/shape"
+                    android:tag="puzzlepart2" >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bottomleft"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:background="@drawable/shape"
+                    android:tag="puzzlepart3" >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bottomright"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:background="@drawable/shape"
+                    android:tag="puzzlepart4" >
+                </LinearLayout>
+            </GridLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".15" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/volume" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:onClick="finishActivity"
+                android:text="Exit" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/table"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
         android:layout_weight=".20"
-        android:orientation="vertical"   
-        android:background="@drawable/shape">  
-	        <ImageView
-	            android:id="@+id/puzzlepart1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:tag="puzzlepart1"
-	            android:src="@drawable/tamano_mini_entrar" />
-	        <ImageView
-	            android:id="@+id/puzzlepart2"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:tag="puzzlepart2"
-	            android:src="@drawable/tamano_mini_opciones" />
-	        <ImageView
-	            android:id="@+id/puzzlepart3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:tag="puzzlepart3"
-	            android:src="@drawable/tamano_mini_salir" />
-	        <ImageView
-	            android:id="@+id/puzzlepart4"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:tag="puzzlepart4"
-	            android:src="@drawable/ic_launcher" />
-	</LinearLayout>
+        android:background="@drawable/shape"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/puzzlepart1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight=".25"
+            android:src="@drawable/burro00"
+            android:tag="puzzlepart1" />
+
+        <ImageView
+            android:id="@+id/puzzlepart2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight=".25"
+            android:src="@drawable/burro01"
+            android:tag="puzzlepart2" />
+
+        <ImageView
+            android:id="@+id/puzzlepart3"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight=".25"
+            android:src="@drawable/burro10"
+            android:tag="puzzlepart3" />
+
+        <ImageView
+            android:id="@+id/puzzlepart4"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight=".25"
+            android:src="@drawable/burro11"
+            android:tag="puzzlepart4" />
+    </LinearLayout>
+
 </LinearLayout>

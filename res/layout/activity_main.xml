@@ -4,12 +4,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/campo"
+    android:baselineAligned="false"
     android:orientation="horizontal" >
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight=".80"
+        android:layout_weight=".75"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:padding="10dp" >
 
@@ -44,100 +46,127 @@
             android:layout_height="fill_parent"
             android:layout_weight=".80" >
 
-            <GridLayout
+            <LinearLayout
                 android:id="@+id/puzzle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:layout_centerInParent="true"
                 android:orientation="vertical"
-                android:rowCount="2"
-                android:stretchMode="columnWidth" >
+                android:padding="20dp" >
 
                 <LinearLayout
-                    android:id="@+id/topleft"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_column="0"
-                    android:layout_row="0"
-                    android:background="@drawable/shape"
-                    android:tag="puzzlepart1" >
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".50"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:id="@+id/topleft"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight=".50"
+                        android:background="@drawable/shape"
+                        android:orientation="horizontal"
+                        android:tag="puzzlepart1" >
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/topright"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight=".50"
+                        android:background="@drawable/shape"
+                        android:orientation="horizontal"
+                        android:tag="puzzlepart2" >
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/topright"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_column="1"
-                    android:layout_row="0"
-                    android:background="@drawable/shape"
-                    android:tag="puzzlepart2" >
-                </LinearLayout>
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".50"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal" >
 
-                <LinearLayout
-                    android:id="@+id/bottomleft"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_column="0"
-                    android:layout_row="1"
-                    android:background="@drawable/shape"
-                    android:tag="puzzlepart3" >
-                </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/bottomleft"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight=".50"
+                        android:background="@drawable/shape"
+                        android:orientation="horizontal"
+                        android:tag="puzzlepart3" >
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/bottomright"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_column="1"
-                    android:layout_row="1"
-                    android:background="@drawable/shape"
-                    android:tag="puzzlepart4" >
+                    <LinearLayout
+                        android:id="@+id/bottomright"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight=".50"
+                        android:background="@drawable/shape"
+                        android:orientation="horizontal"
+                        android:tag="puzzlepart4" >
+                    </LinearLayout>
                 </LinearLayout>
-            </GridLayout>
+            </LinearLayout>
 
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/solution"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:layout_centerInParent="true"
                 android:orientation="vertical"
-                android:rowCount="2"
-                android:stretchMode="columnWidth" >
+                android:padding="20dp" >
 
                 <LinearLayout
-                    android:id="@+id/topleftsolution"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_column="0"
-                    android:layout_row="0"
-                    android:background="@drawable/burro00" >
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".50"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:id="@+id/topleftsolution"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight=".50"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/toprightsolution"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight=".50"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/toprightsolution"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_column="1"
-                    android:layout_row="0"
-                    android:background="@drawable/burro01" >
-                </LinearLayout>
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".50"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal" >
 
-                <LinearLayout
-                    android:id="@+id/bottomleftsolution"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_column="0"
-                    android:layout_row="1"
-                    android:background="@drawable/burro10" >
-                </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/bottomleftsolution"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight=".50"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/bottomrightsolution"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_column="1"
-                    android:layout_row="1"
-                    android:background="@drawable/burro11" >
+                    <LinearLayout
+                        android:id="@+id/bottomrightsolution"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight=".50"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
                 </LinearLayout>
-            </GridLayout>
+            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 
@@ -145,10 +174,10 @@
         android:id="@+id/table"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight=".20"
+        android:layout_weight=".25"
         android:background="@drawable/starting"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:padding="2dp" >
 
         <ImageView
             android:id="@+id/puzzlepart1"
@@ -156,8 +185,9 @@
             android:layout_height="0dp"
             android:layout_weight=".25"
             android:adjustViewBounds="true"
+            android:layout_margin="2dp"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/piezapuzzle"
-            android:src="@drawable/burro00"
             android:tag="puzzlepart1" />
 
         <ImageView
@@ -166,8 +196,9 @@
             android:layout_height="0dp"
             android:layout_weight=".25"
             android:adjustViewBounds="true"
+            android:layout_margin="2dp"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/piezapuzzle"
-            android:src="@drawable/burro01"
             android:tag="puzzlepart2" />
 
         <ImageView
@@ -176,8 +207,9 @@
             android:layout_height="0dp"
             android:layout_weight=".25"
             android:adjustViewBounds="true"
+            android:layout_margin="2dp"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/piezapuzzle"
-            android:src="@drawable/burro10"
             android:tag="puzzlepart3" />
 
         <ImageView
@@ -186,8 +218,9 @@
             android:layout_height="0dp"
             android:layout_weight=".25"
             android:adjustViewBounds="true"
+            android:layout_margin="2dp"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/piezapuzzle"
-            android:src="@drawable/burro11"
             android:tag="puzzlepart4" />
     </LinearLayout>
 

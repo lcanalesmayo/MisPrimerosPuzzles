@@ -3,24 +3,24 @@
     android:shape="rectangle" >
 
     <stroke
-        android:width="2dp"
+        android:width="1dp"
         android:color="#FFFFFF" />
 
     <gradient
         android:angle="225"
-        android:endColor="#2ECCFA"
-        android:startColor="#000000" />
+        android:endColor="#ffd154"
+        android:startColor="#ffff3d" />
 
     <corners
-        android:bottomLeftRadius="7dp"
-        android:bottomRightRadius="7dp"
-        android:topLeftRadius="7dp"
-        android:topRightRadius="7dp" />
+        android:bottomLeftRadius="4dp"
+        android:bottomRightRadius="4dp"
+        android:topLeftRadius="4dp"
+        android:topRightRadius="4dp" />
 
     <padding
-        android:bottom="2dp"
-        android:left="2dp"
-        android:right="2dp"
-        android:top="2dp" />
+        android:bottom="1dp"
+        android:left="1dp"
+        android:right="1dp"
+        android:top="1dp" />
 
 </shape>

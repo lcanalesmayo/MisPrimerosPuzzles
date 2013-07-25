@@ -1,42 +1,33 @@
 package com.example.misprimerospuzzles;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.DragShadowBuilder;
-import android.view.View.OnDragListener;
-import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+/**
+ * Actividad principal de la aplicación
+ * 
+ * @author Luis
+ * 
+ */
 public class MainActivity extends Activity {
+	private static MainActivity instance = null;
 
-	// Sonidos
-	private MediaPlayer mPlayerFinal;
-	private MediaPlayer mPlayerFail;
-	private MediaPlayer mPlayerNice;
-	private MediaPlayer mPlayerPista;
-
-	// Modo ayuda
-	private boolean helpMode = false;
-
-	// Fondos para piezas de puzzle
-	private Drawable enterShape;
-	private Drawable normalShape;
-	private Drawable enterShapeTransparent;
-	private Drawable normalShapeTransparent;
-
+	/**
+	 * Punto de entrada a la aplicación
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		setInstance(this);
 
 		// Layout principal
 		setContentView(R.layout.activity_main);
@@ -44,6 +35,48 @@ public class MainActivity extends Activity {
 		// Eliminamos las barras de notificaciÃ³n
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+		// Seleccionamos los items del puzzle
+		String[] piezasString = PropertyUtils.getProperty("burro").split(",");
+		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.table);
+		for (int i = 0; i < piezasString.length; i++) {
+			String pieza = piezasString[i];
+			int resID = getResources().getIdentifier(pieza, "drawable",
+					getPackageName());
+			((ImageView) linearLayout.getChildAt(i))
+					.setImageDrawable(getResources().getDrawable(resID));
+
+			switch (i) {
+			case 0:
+				((LinearLayout) findViewById(R.id.topleftsolution))
+						.setBackgroundDrawable(getResources()
+								.getDrawable(resID));
+				break;
+			case 1:
+				((LinearLayout) findViewById(R.id.toprightsolution))
+						.setBackgroundDrawable(getResources()
+								.getDrawable(resID));
+
+				break;
+			case 2:
+				((LinearLayout) findViewById(R.id.bottomleftsolution))
+						.setBackgroundDrawable(getResources()
+								.getDrawable(resID));
+
+				break;
+			case 3:
+				((LinearLayout) findViewById(R.id.bottomrightsolution))
+						.setBackgroundDrawable(getResources()
+								.getDrawable(resID));
+
+				break;
+			default:
+				break;
+			}
+		}
+
+		// Modo ayuda desactivado inicialmente
+		Commons.helpMode = false;
 
 		// Drag listeners
 		PuzzlePartDragListener puzzlePartDragListener = new PuzzlePartDragListener();
@@ -65,11 +98,12 @@ public class MainActivity extends Activity {
 				.setOnDragListener(puzzlePartDragListener);
 
 		// Fondos de piezas de puzzle
-		enterShape = getResources().getDrawable(R.drawable.shape_droptarget);
-		normalShape = getResources().getDrawable(R.drawable.shape);
-		enterShapeTransparent = getResources().getDrawable(
+		Commons.enterShape = getResources().getDrawable(
+				R.drawable.shape_droptarget);
+		Commons.normalShape = getResources().getDrawable(R.drawable.shape);
+		Commons.enterShapeTransparent = getResources().getDrawable(
 				R.drawable.shape_droptarget_transparent);
-		normalShapeTransparent = getResources().getDrawable(
+		Commons.normalShapeTransparent = getResources().getDrawable(
 				R.drawable.shape_transparent);
 
 		// Para el modo ayuda, la parte que puede quedarse transparente debe ir
@@ -77,19 +111,23 @@ public class MainActivity extends Activity {
 		findViewById(R.id.puzzle).bringToFront();
 
 		// Creamos los sonidos
-		mPlayerFinal = MediaPlayer.create(this, R.raw.burro);
-		mPlayerFail = MediaPlayer.create(this, R.raw.fail);
-		mPlayerNice = MediaPlayer.create(this, R.raw.nice);
-		mPlayerPista = MediaPlayer.create(this, R.raw.pista);
+		Commons.mPlayerFinal = MediaPlayer.create(this, R.raw.burro);
+		Commons.mPlayerFail = MediaPlayer.create(this, R.raw.fail);
+		Commons.mPlayerNice = MediaPlayer.create(this, R.raw.nice);
+		Commons.mPlayerPista = MediaPlayer.create(this, R.raw.pista);
 	}
 
-	// Deshabilitamos el back button
+	/**
+	 * Método ejecutado al pulsar el botón "atras" (deshabilitado)
+	 */
 	@Override
 	public void onBackPressed() {
 		return;
 	}
 
-	// ImplementaciÃ³n del menÃº de la aplicaciÃ³n
+	/**
+	 * Implementación del menú de la aplicación
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -97,6 +135,13 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Implementación de los manejadores de las opciones del menú de la
+	 * aplicación
+	 * 
+	 * @param item
+	 *            opción de menú seleccionada
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -108,158 +153,47 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	private final class PuzzlePartTouchListener implements OnTouchListener {
-		public boolean onTouch(View view, MotionEvent motionEvent) {
-			if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-				ClipData data = ClipData.newPlainText("", "");
-				DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(
-						view);
-				view.startDrag(data, shadowBuilder, view, 0);
-				view.setVisibility(View.INVISIBLE);
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}
-
-	// Drag listener para los huecos de pieza de puzzle (solo se mueven aqui si
-	// la posicion es correcta)
-	private final class PuzzlePartDragListener implements OnDragListener {
-		private int piezasRestantes = 4;
-
-		private boolean verifyPuzzlePart(View viewToMove, View toParentView) {
-			// Verificacion de que la pieza dada en el primer parametro es
-			// correcta en la posicion dada
-			// en el layout toParentView
-			return (viewToMove.getTag().equals(toParentView.getTag()));
-		}
-
-		@Override
-		public boolean onDrag(View v, DragEvent event) {
-			switch (event.getAction()) {
-			case DragEvent.ACTION_DRAG_STARTED:
-				break;
-			case DragEvent.ACTION_DRAG_ENTERED:
-				if (helpMode) {
-					v.setBackgroundDrawable(enterShapeTransparent);
-				} else {
-					v.setBackgroundDrawable(enterShape);
-				}
-				break;
-			case DragEvent.ACTION_DRAG_EXITED:
-				if (helpMode) {
-					v.setBackgroundDrawable(normalShapeTransparent);
-				} else {
-					v.setBackgroundDrawable(normalShape);
-				}
-				break;
-			case DragEvent.ACTION_DROP:
-				View view = (View) event.getLocalState();
-				if (verifyPuzzlePart(view, v)) {
-					// Pieza correcta, la dejamos invisible y cambiamos el fondo
-					// del lugar en el que la hemos colocado
-					v.setVisibility(View.INVISIBLE);
-					v.setOnDragListener(null);
-					v.setTag(null);
-
-					piezasRestantes--;
-					if (piezasRestantes == 0) {
-						finalizarPuzzle();
-					} else {
-						piezaBien();
-					}
-				} else {
-					// Pieza incorrecta, la hacemos visible en la posicion
-					// inicial de nuevo
-					view.setVisibility(View.VISIBLE);
-
-					piezaErronea();
-				}
-				break;
-			case DragEvent.ACTION_DRAG_ENDED:
-				if (helpMode) {
-					v.setBackgroundDrawable(normalShapeTransparent);
-				} else {
-					v.setBackgroundDrawable(normalShape);
-				}
-			default:
-				break;
-			}
-			return true;
-		}
-	}
-
-	// Drag listener por defecto (no mover la pieza)
-	private final class DefaultDragListener implements OnDragListener {
-
-		@Override
-		public boolean onDrag(View v, DragEvent event) {
-			switch (event.getAction()) {
-			case DragEvent.ACTION_DROP:
-				View view = (View) event.getLocalState();
-				view.setVisibility(View.VISIBLE);
-				break;
-			default:
-				break;
-			}
-			return true;
-		}
-	}
-
-	private void piezaBien() {
-		mPlayerNice.start();
-	}
-
-	private void piezaErronea() {
-		mPlayerFail.start();
-	}
-
-	private void finalizarPuzzle() {
-		mPlayerFinal.start();
-		
-		findViewById(R.id.button_bombilla).setVisibility(View.INVISIBLE);
-	}
-
 	// Manejadores de botones
 	public void darPista(View v) {
-		mPlayerPista.start();
+		Commons.mPlayerPista.start();
 
-		helpMode = !helpMode;
+		Commons.helpMode = !Commons.helpMode;
 
 		View topleft = findViewById(R.id.topleft);
 		if (topleft.getTag() != null) {
-			if (helpMode) {
-				topleft.setBackgroundDrawable(normalShapeTransparent);
+			if (Commons.helpMode) {
+				topleft.setBackgroundDrawable(Commons.normalShapeTransparent);
 			} else {
-				topleft.setBackgroundDrawable(normalShape);
+				topleft.setBackgroundDrawable(Commons.normalShape);
 			}
 		}
 
 		View topright = findViewById(R.id.topright);
 		if (topright.getTag() != null) {
-			if (helpMode) {
-				topright.setBackgroundDrawable(normalShapeTransparent);
+			if (Commons.helpMode) {
+				topright.setBackgroundDrawable(Commons.normalShapeTransparent);
 			} else {
-				topright.setBackgroundDrawable(normalShape);
+				topright.setBackgroundDrawable(Commons.normalShape);
 			}
 		}
 
 		View bottomleft = findViewById(R.id.bottomleft);
 		if (bottomleft.getTag() != null) {
-			if (helpMode) {
-				bottomleft.setBackgroundDrawable(normalShapeTransparent);
+			if (Commons.helpMode) {
+				bottomleft
+						.setBackgroundDrawable(Commons.normalShapeTransparent);
 			} else {
-				bottomleft.setBackgroundDrawable(normalShape);
+				bottomleft.setBackgroundDrawable(Commons.normalShape);
 			}
 		}
 
 		View bottomright = findViewById(R.id.bottomright);
 		if (bottomright.getTag() != null) {
-			if (helpMode) {
-				bottomright.setBackgroundDrawable(normalShapeTransparent);
+			if (Commons.helpMode) {
+				bottomright
+						.setBackgroundDrawable(Commons.normalShapeTransparent);
 			} else {
-				bottomright.setBackgroundDrawable(normalShape);
+				bottomright.setBackgroundDrawable(Commons.normalShape);
 			}
 		}
 	}
@@ -267,4 +201,11 @@ public class MainActivity extends Activity {
 	public void gotoHome(View v) {
 	}
 
+	public static MainActivity getInstance() {
+		return instance;
+	}
+
+	public static void setInstance(MainActivity instance) {
+		MainActivity.instance = instance;
+	}
 }

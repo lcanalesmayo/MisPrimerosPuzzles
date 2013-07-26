@@ -1,7 +1,9 @@
-package com.example.misprimerospuzzles;
+package com.example.misprimerospuzzles.utils;
 
 import java.io.InputStream;
 import java.util.Properties;
+
+import android.content.Context;
 
 /**
  * Manejo de propiedades
@@ -11,10 +13,10 @@ import java.util.Properties;
  */
 public class PropertyUtils {
 
-	private static Properties properties;
+	private Properties properties;
 
-	static {
-		properties = loadProperties();
+	public PropertyUtils(Context context) {
+		loadProperties(context);
 	}
 
 	/**
@@ -24,29 +26,26 @@ public class PropertyUtils {
 	 *            clave de la propiedad
 	 * @return valor de la propiedad
 	 */
-	public static String getProperty(String key) {
+	public String getProperty(String key) {
 		return properties.getProperty(key);
 	}
 
 	/**
 	 * Carga las propiedades
 	 * 
-	 * @return propiedades
 	 */
-	private static Properties loadProperties() {
+	public void loadProperties(Context context) {
 		String[] fileList = { "app.properties" };
-		Properties prop = new Properties();
 		for (int i = fileList.length - 1; i >= 0; i--) {
 			String file = fileList[i];
 			try {
-				InputStream fileStream = MainActivity.getInstance().getAssets()
-						.open(file);
-				prop.load(fileStream);
+				InputStream fileStream = context.getAssets().open(file);
+				properties = new Properties();
+				properties.load(fileStream);
 				fileStream.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return prop;
 	}
 }

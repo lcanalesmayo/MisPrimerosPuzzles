@@ -1,8 +1,16 @@
-package com.example.misprimerospuzzles;
+package com.example.misprimerospuzzles.listeners;
 
+import android.app.Activity;
+import android.graphics.drawable.AnimationDrawable;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.example.misprimerospuzzles.PuzzleActivity;
+import com.example.misprimerospuzzles.R;
+import com.example.misprimerospuzzles.utils.Commons;
 
 /**
  * Drag listener para los huecos de pieza de puzzle (solo se mueven aqui si la
@@ -13,6 +21,11 @@ import android.view.View.OnDragListener;
  */
 public final class PuzzlePartDragListener implements OnDragListener {
 	private int piezasRestantes = 4;
+	private Activity context;
+
+	public PuzzlePartDragListener(Activity context) {
+		this.context = context;
+	}
 
 	private boolean verifyPuzzlePart(View viewToMove, View toParentView) {
 		// Verificacion de que la pieza dada en el primer parametro es
@@ -88,6 +101,14 @@ public final class PuzzlePartDragListener implements OnDragListener {
 
 	private void piezaBien() {
 		Commons.mPlayerNice.start();
+
+		ImageView imageView = (ImageView) context
+				.findViewById(R.id.okAnimation);
+		AnimationDrawable frameAnimation = (AnimationDrawable) imageView
+				.getBackground();
+
+		frameAnimation.stop();
+		frameAnimation.start();
 	}
 
 	private void piezaErronea() {
@@ -97,7 +118,7 @@ public final class PuzzlePartDragListener implements OnDragListener {
 	private void finalizarPuzzle() {
 		Commons.mPlayerFinal.start();
 
-		MainActivity.getInstance().findViewById(R.id.button_bombilla)
+		PuzzleActivity.getInstance().findViewById(R.id.button_bombilla)
 				.setVisibility(View.INVISIBLE);
 	}
 }

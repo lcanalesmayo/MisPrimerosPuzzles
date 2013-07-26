@@ -1,7 +1,5 @@
 package com.example.misprimerospuzzles;
 
-import android.app.Activity;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,33 +9,46 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.misprimerospuzzles.listeners.DefaultDragListener;
+import com.example.misprimerospuzzles.listeners.PuzzlePartDragListener;
+import com.example.misprimerospuzzles.listeners.PuzzlePartTouchListener;
+import com.example.misprimerospuzzles.utils.Commons;
+import com.example.misprimerospuzzles.utils.PropertyUtils;
+
 /**
- * Actividad principal de la aplicación
+ * Puzzle individual de la aplicación
  * 
  * @author Luis
  * 
  */
-public class MainActivity extends Activity {
-	private static MainActivity instance = null;
+public class PuzzleActivity extends BaseActivity {
+	private static PuzzleActivity instance = null;
 
 	/**
-	 * Punto de entrada a la aplicación
+	 * Punto de entrada a la actividad
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setInstance(this);
-
+		
 		// Layout principal
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.puzzleactivity_layout);
 
 		// Eliminamos las barras de notificaciÃ³n
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
+		// Cargamos las propiedades
+		propertyUtils = new PropertyUtils(instance);
+		
+		// Obtenemos los parámetros de invocación
+		Bundle bundle = getIntent().getExtras();
 
 		// Seleccionamos los items del puzzle
-		String[] piezasString = PropertyUtils.getProperty("burro").split(",");
+		String puzzle = bundle.getString(Commons.NOMBRE_PUZZLE);
+		String[] piezasString = propertyUtils.getProperty(puzzle).split(",");
 		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.table);
 		for (int i = 0; i < piezasString.length; i++) {
 			String pieza = piezasString[i];
@@ -79,7 +90,7 @@ public class MainActivity extends Activity {
 		Commons.helpMode = false;
 
 		// Drag listeners
-		PuzzlePartDragListener puzzlePartDragListener = new PuzzlePartDragListener();
+		PuzzlePartDragListener puzzlePartDragListener = new PuzzlePartDragListener(this);
 
 		findViewById(R.id.puzzlepart1).setOnTouchListener(
 				new PuzzlePartTouchListener());
@@ -89,7 +100,7 @@ public class MainActivity extends Activity {
 				new PuzzlePartTouchListener());
 		findViewById(R.id.puzzlepart4).setOnTouchListener(
 				new PuzzlePartTouchListener());
-		findViewById(R.id.mainlayout).setOnDragListener(
+		findViewById(R.id.puzzlelayout).setOnDragListener(
 				new DefaultDragListener());
 		findViewById(R.id.topleft).setOnDragListener(puzzlePartDragListener);
 		findViewById(R.id.topright).setOnDragListener(puzzlePartDragListener);
@@ -97,24 +108,12 @@ public class MainActivity extends Activity {
 		findViewById(R.id.bottomright)
 				.setOnDragListener(puzzlePartDragListener);
 
-		// Fondos de piezas de puzzle
-		Commons.enterShape = getResources().getDrawable(
-				R.drawable.shape_droptarget);
-		Commons.normalShape = getResources().getDrawable(R.drawable.shape);
-		Commons.enterShapeTransparent = getResources().getDrawable(
-				R.drawable.shape_droptarget_transparent);
-		Commons.normalShapeTransparent = getResources().getDrawable(
-				R.drawable.shape_transparent);
-
 		// Para el modo ayuda, la parte que puede quedarse transparente debe ir
 		// al frente
 		findViewById(R.id.puzzle).bringToFront();
-
-		// Creamos los sonidos
-		Commons.mPlayerFinal = MediaPlayer.create(this, R.raw.burro);
-		Commons.mPlayerFail = MediaPlayer.create(this, R.raw.fail);
-		Commons.mPlayerNice = MediaPlayer.create(this, R.raw.nice);
-		Commons.mPlayerPista = MediaPlayer.create(this, R.raw.pista);
+		
+		// La animación en caso de pieza exitosa debe quedar más al frente aún
+		findViewById(R.id.okAnimation).bringToFront();
 	}
 
 	/**
@@ -131,7 +130,7 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.activity_main, menu);
+		inflater.inflate(R.menu.puzzleactivity_menu, menu);
 		return true;
 	}
 
@@ -198,14 +197,19 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Vuelve al listado de puzzles disponibles
+	 * @param v botón pulsado
+	 */
 	public void gotoHome(View v) {
+		finish();
 	}
 
-	public static MainActivity getInstance() {
+	public static PuzzleActivity getInstance() {
 		return instance;
 	}
 
-	public static void setInstance(MainActivity instance) {
-		MainActivity.instance = instance;
+	public static void setInstance(PuzzleActivity instance) {
+		PuzzleActivity.instance = instance;
 	}
 }

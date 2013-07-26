@@ -1,4 +1,4 @@
-package com.example.misprimerospuzzles;
+package com.example.misprimerospuzzles.utils;
 
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -24,4 +24,10 @@ public class Commons {
 	public static MediaPlayer mPlayerFail;
 	public static MediaPlayer mPlayerNice;
 	public static MediaPlayer mPlayerPista;
+	
+	// Parámetros entre activities
+	public static final String NOMBRE_PUZZLE = "nombrepuzzle";
+	
+	// Piezas por puzzle
+	public static final int PUZZLE_PARTS = 4;
 }

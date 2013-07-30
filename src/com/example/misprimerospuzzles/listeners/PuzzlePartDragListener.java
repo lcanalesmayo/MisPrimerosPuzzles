@@ -6,7 +6,7 @@ import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.misprimerospuzzles.PuzzleActivity;
 import com.example.misprimerospuzzles.R;
@@ -116,9 +116,13 @@ public final class PuzzlePartDragListener implements OnDragListener {
 	}
 
 	private void finalizarPuzzle() {
-		Commons.mPlayerFinal.start();
+		context.findViewById(R.id.nombrepuzzle).setVisibility(View.VISIBLE);
 
-		PuzzleActivity.getInstance().findViewById(R.id.button_bombilla)
+		context.findViewById(R.id.button_bombilla)
 				.setVisibility(View.INVISIBLE);
+
+		context.findViewById(R.id.table).setVisibility(View.INVISIBLE);
+
+		Commons.mPlayerFinal.start();
 	}
 }

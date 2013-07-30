@@ -70,7 +70,6 @@ public class PuzzleListActivity extends BaseActivity {
 				R.drawable.shape_transparent);
 		
 		// Creamos los sonidos
-		Commons.mPlayerFinal = MediaPlayer.create(this, R.raw.burro);
 		Commons.mPlayerFail = MediaPlayer.create(this, R.raw.fail);
 		Commons.mPlayerNice = MediaPlayer.create(this, R.raw.nice);
 		Commons.mPlayerPista = MediaPlayer.create(this, R.raw.pista);

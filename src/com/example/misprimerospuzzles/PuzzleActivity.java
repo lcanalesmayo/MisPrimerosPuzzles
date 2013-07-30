@@ -1,5 +1,6 @@
 package com.example.misprimerospuzzles;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.misprimerospuzzles.listeners.DefaultDragListener;
 import com.example.misprimerospuzzles.listeners.PuzzlePartDragListener;
@@ -85,6 +87,10 @@ public class PuzzleActivity extends BaseActivity {
 				break;
 			}
 		}
+		
+		// Rellenamos el texto con el nombre del puzzle
+		TextView textView = (TextView)findViewById(R.id.nombrepuzzle);
+		textView.setText(puzzle);
 
 		// Modo ayuda desactivado inicialmente
 		Commons.helpMode = false;
@@ -114,6 +120,11 @@ public class PuzzleActivity extends BaseActivity {
 		
 		// La animación en caso de pieza exitosa debe quedar más al frente aún
 		findViewById(R.id.okAnimation).bringToFront();
+
+		// Creamos los sonidos
+		int resID = getResources().getIdentifier(puzzle,
+				"raw", getPackageName());
+		Commons.mPlayerFinal = MediaPlayer.create(this, resID);
 	}
 
 	/**

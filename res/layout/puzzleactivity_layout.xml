@@ -238,5 +238,20 @@
                 android:tag="puzzlepart4" />
         </LinearLayout>
     </LinearLayout>
+    
+    <TextView 
+        android:id="@+id/nombrepuzzle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:padding="10dp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:background="@drawable/textview"
+        android:textColor="@color/black"
+        android:textSize="22sp"/>
 
 </RelativeLayout>
